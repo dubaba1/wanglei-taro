@@ -3,6 +3,10 @@ import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
 
 import Index from './pages/index'
+import employee from './pages/employee'
+import employer from './pages/employer'
+import mine from './pages/mine'
+
 
 import configStore from './store'
 
@@ -20,15 +24,49 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/index/index'
+      'pages/index/index',
+      'pages/employee/employee',
+      'pages/employer/employer',
+      'pages/mine/mine'
     ],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
+      navigationBarBackgroundColor: '#2BA345',
       navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
-    }
-  }
+      navigationBarTextStyle: 'white'
+    },
+
+    tabBar: {
+      "color": "#c2cfcc",
+      "selectedColor": "#2BA345",
+      "backgroundColor": "#f6f6f6",
+      "position": "bottom",
+       list: [{
+         text: "首页",
+         pagePath: "pages/index/index",
+         "iconPath": "assets/icon/主页1.png",
+         "selectedIconPath": "assets/icon/主页.png"
+      },
+         {
+           "text": "找工作",
+           "pagePath": "pages/employee/employee",
+           "iconPath": "assets/icon/未选公司.png",
+           "selectedIconPath": "assets/icon/公司.png"
+         },
+         {
+           "text": "找人才",
+           "pagePath": "pages/employer/employer",
+           "iconPath": "assets/icon/未选人才.png",
+           "selectedIconPath": "assets/icon/人才.png"
+         },
+         {
+           "text": "我的",
+           "pagePath": "pages/mine/mine",
+           "iconPath": "assets/icon/我的.png",
+           "selectedIconPath": "assets/icon/我的1.png"
+         }
+    ]
+  }  };
 
   componentDidMount () {}
 
@@ -44,6 +82,9 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Index />
+        <employee />
+        <employer />
+        <mine />
       </Provider>
     )
   }

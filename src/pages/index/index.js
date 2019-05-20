@@ -1,9 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text } from '@tarojs/components'
+import {Swiper,SwiperItem} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-
+import zhua from '../../assets/imgs/zhua.jpg'
+import three from '../../assets/imgs/three.jpg'
+import join from '../../assets/imgs/jion.jpg'
 import { add, minus, asyncAdd } from '../../actions/counter'
-
+import TextUI from '../../component/test/index'
 import './index.scss'
 
 
@@ -38,13 +40,29 @@ class Index extends Component {
 
   render () {
     return (
-      <View className='index'>
-        <Button className='add_btn' onClick={this.props.add}>+</Button>
-        <Button className='dec_btn' onClick={this.props.dec}>-</Button>
-        <Button className='dec_btn' onClick={this.props.asyncAdd}>async</Button>
-        <View><Text>{this.props.counter.num}</Text></View>
-        <View><Text>Hello, World</Text></View>
-      </View>
+      <view>
+      <Swiper
+        className='test-h'
+        indicatorColor='#999'
+        indicatorActiveColor='#333'
+        vertical={false}
+        circular
+        indicatorDots
+        autoplay
+      >
+        <SwiperItem>
+          <image src={zhua} />
+        </SwiperItem>
+        <SwiperItem>
+          <image src={three} />
+        </SwiperItem>
+        <SwiperItem>
+          <image src={join} />
+        </SwiperItem>
+      </Swiper>
+        <TextUI title='asdfs'/>
+        <View>fsdf</View>
+      </view>
     )
   }
 }
