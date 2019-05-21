@@ -49,8 +49,7 @@ class Index extends Component {
             <Image src={join}/>
           </SwiperItem>
         </Swiper>
-        <TextUI title='asdfs'/>
-        <View>fsdf</View>
+
       </view>
     )
   }

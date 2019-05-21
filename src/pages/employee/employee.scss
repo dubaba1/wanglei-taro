@@ -1,35 +1,6 @@
-.r-input {
-  position: relative;
-  display: flex;
-  flex-grow: 1;
+.at-list__item-content{
+  margin-right: 0px;
 }
-
-.input {
-  flex-shrink: 0;
-  width: 85%;
-  margin-left: 5%;
-  padding: 10px 0;
-  height: 25px;
-  line-height: 25px;
-  color: #333;
-  font-size: 15px;
-}
-
-.icon {
-  position:absolute;
-  z-index:10;
-  top:0;
-  right:0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-  width: 20%;
-  height: 45px;
-  line-height: 45px;
-}
-
-.icon-search {
-  width: 17px;
-  height: 17px;
+.list{
+  height: 220px
 }
