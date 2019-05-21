@@ -1,3 +1,13 @@
 .index{
-  height: 100vh;
+  height: 75vh;
+  padding:20px 20px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.join_btn{
+  width: 80%;
+  margin-bottom: 30px;
 }

@@ -1,11 +1,18 @@
 import Taro, {Component} from '@tarojs/taro'
 import {Button, View} from '@tarojs/components'
 
+import {connect} from "@tarojs/redux";
+
+import userActions from '../../../actions/user-action'
 import './index.scss'
-import {AtButton} from "taro-ui";
 
+@connect(({user}) => ({...user}),
+  dispatch => ({
+    dispatchRegisterUser(userInfo) {
+      dispatch(userActions.register(userInfo));
+    }
+  }))
 class Index extends Component {
-
   config = {
     navigationBarTitleText: '加入我们'
   };
@@ -22,33 +29,30 @@ class Index extends Component {
   componentWillUnmount() {
     // 如果已经能够获取用户信息直接注册账号
   }
-
-  componentDidShow() {
-  }
-
-  componentDidHide() {
-  }
-
-  onChange() {
-
-  }
-
   render() {
     return (
       <View className='index'>
-        <Button className='join_btn' open-type='getUserInfo' onClick={this.getUserInfo}
-                bindgetuserinfo={this.getUserInfo}
-        > 加入我们
+        <Button className='join_btn' open-type='getUserInfo' onClick={this.getUserInfo.bind(this, 0)}
+          bindgetuserinfo={this.getUserInfo.bind(this,0)}
+        > 我是学生
+        </Button>
+        <Button className='join_btn' open-type='getUserInfo' onClick={this.getUserInfo.bind(this, 1)}
+          bindgetuserinfo={this.getUserInfo.bind(this,1)}
+        > 我是企业
         </Button>
       </View>
     )
   }
 
-  getUserInfo(e) {
-    console.log(e);
+  getUserInfo(type, e) {
     if (e.detail.userInfo) {
       // 成功获取用户信息，进行用户信息的展示，同时注册账号
-
+      let userInfo = e.detail.userInfo;
+      userInfo.type = type;
+      userInfo.nickname = userInfo.nickName;
+      userInfo.wechatAvatar = userInfo.avatarUrl;
+      userInfo.wechatOpenId = this.props.code2sessionRes.openid;
+      this.props.dispatchRegisterUser(userInfo);
     }
   }
 }
