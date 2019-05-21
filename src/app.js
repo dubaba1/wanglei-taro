@@ -22,10 +22,10 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/welcome/index',
       'pages/user-edit/index',
       'pages/user-detail/index',
       'pages/company-detail/index',
-      'pages/welcome/index',
       'pages/welcome/register/index',
       'pages/index/index',
       'pages/employee/employee',
@@ -74,7 +74,7 @@ class App extends Component {
     Taro.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        // store.dispatch(userActions.code2session(res.code));
+        store.dispatch(userActions.code2session(res.code));
       }
     });
   }

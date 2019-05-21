@@ -1,14 +1,10 @@
-import Taro, {Component} from '@tarojs/taro'
-import {Swiper, SwiperItem} from '@tarojs/components'
-import {connect} from '@tarojs/redux'
+import Taro,{Component} from '@tarojs/taro'
+import {Image, Swiper, SwiperItem, View} from '@tarojs/components'
 import zhua from '../../assets/imgs/zhua.jpg'
 import three from '../../assets/imgs/three.jpg'
 import join from '../../assets/imgs/jion.jpg'
-import {add, minus, asyncAdd} from '../../actions/counter'
-import TextUI from '../../component/test/index'
-import {AtCard, AtFloatLayout} from "taro-ui"
+import {AtCard} from "taro-ui"
 import './index.scss'
-import React from "react";
 
 class Index extends Component {
 
@@ -43,21 +39,21 @@ class Index extends Component {
           autoplay
         >
           <SwiperItem>
-            <Image className='img' src={zhua}/>
+            <Image className='img' src={zhua} />
           </SwiperItem>
           <SwiperItem>
-            <Image className='img' src={three}/>
+            <Image className='img' src={three} />
           </SwiperItem>
           <SwiperItem>
-            <Image className='img' src={join}/>
+            <Image className='img' src={join} />
           </SwiperItem>
         </Swiper>
 
       </View>
         <View>
-          < AtCard className='de-card'
-                   title='牧星校园简介'
-                   note='@2019王磊'
+          <AtCard className='de-card'
+            title='牧星校园简介'
+            note='@2019王磊'
 
           >
             <View>

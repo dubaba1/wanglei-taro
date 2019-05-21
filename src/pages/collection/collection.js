@@ -1,24 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
-import { connect } from '@tarojs/redux'
-import { add, minus, asyncAdd } from '../../actions/counter'
-import './deliver.scss'
-import React from "react";
 import {View} from "@tarojs/components";
-import {AtCard,AtRate ,AtList, AtListItem} from "taro-ui"
+import {AtCard} from "taro-ui"
+import './collection.scss'
 
-@connect(({ counter }) => ({
-  counter
-}), (dispatch) => ({
-  add () {
-    dispatch(add())
-  },
-  dec () {
-    dispatch(minus())
-  },
-  asyncAdd () {
-    dispatch(asyncAdd())
-  }
-}))
 class deliver extends Component {
   constructor () {
     super(...arguments)
@@ -50,46 +34,46 @@ class deliver extends Component {
     return (
       <View >
         <View className='head'>收藏列表</View>
-        < AtCard className='de-card'
-                 title='谷歌公司'
-                 note='公司地址：放大科技园'
-                 extra='[公司详情]' onClick={this.tocollection}
-                 thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
+        <AtCard className='de-card'
+          title='谷歌公司'
+          note='公司地址：放大科技园'
+          extra='[公司详情]' onClick={this.tocollection}
+          thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
         >
           职位：掏粪
         </AtCard>
-        < AtCard className='de-card'
-                 title='谷歌公司'
-                 extra='公司详情' onClick={this.tocollection}
-                 thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
+        <AtCard className='de-card'
+          title='谷歌公司'
+          extra='公司详情' onClick={this.tocollection}
+          thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
         >
           职位：掏粪
         </AtCard>
-        < AtCard className='de-card'
-                 title='谷歌公司'
-                 extra='公司详情' onClick={this.tocollection}
-                 thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
+        <AtCard className='de-card'
+          title='谷歌公司'
+          extra='公司详情' onClick={this.tocollection}
+          thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
         >
           职位：掏粪
         </AtCard>
-        < AtCard className='de-card'
-                 title='谷歌公司'
-                 extra='公司详情' onClick={this.tocollection}
-                 thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
+        <AtCard className='de-card'
+          title='谷歌公司'
+          extra='公司详情' onClick={this.tocollection}
+          thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
         >
           职位：掏粪
         </AtCard>
-        < AtCard className='de-card'
-                 title='谷歌公司'
-                 extra='公司详情' onClick={this.tocollection}
-                 thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
+        <AtCard className='de-card'
+          title='谷歌公司'
+          extra='公司详情' onClick={this.tocollection}
+          thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
         >
           职位：掏粪
         </AtCard>
-        < AtCard className='de-card'
-                 title='谷歌公司'
-                 extra='公司详情' onClick={this.tocollection}
-                 thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
+        <AtCard className='de-card'
+          title='谷歌公司'
+          extra='公司详情' onClick={this.tocollection}
+          thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
         >
           职位：掏粪
         </AtCard>
