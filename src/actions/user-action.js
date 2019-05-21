@@ -78,7 +78,7 @@ const login =(openId)=>{
       });
       //  {
       //           "text": "找工作",
-      //           "pagePath": "pages/employee/employee",
+      //           "pagePath": "pages/deliver/deliver",
       //           "iconPath": "assets/icon/未选公司.png",
       //           "selectedIconPath": "assets/icon/公司.png"
       //         },

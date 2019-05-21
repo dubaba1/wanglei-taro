@@ -26,7 +26,7 @@ export default function user(state = INITIAL_STATE, action) {
     case userActionTypes.USER_LOGIN_SUCCESS:
       return {
         ...state,
-        userInfo: action.data,
+        userInfo: action.userInfo,
         status: 1
       };
     default:
