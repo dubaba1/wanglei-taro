@@ -22,11 +22,14 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/index/index',
       'pages/welcome/index',
       'pages/welcome/register/index',
+      'pages/index/index',
       'pages/employee/employee',
-      'pages/mine/mine'
+      'pages/mine/mine',
+      'pages/deliver/deliver',
+      'pages/collection/collection'
+
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -87,10 +90,10 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Index/>
+        <Index />
       </Provider>
     )
   }
 }
 
-Taro.render(<App/>, document.getElementById('app'))
+Taro.render(<App />, document.getElementById('app'))
