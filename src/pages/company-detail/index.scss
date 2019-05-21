@@ -1,0 +1,28 @@
+.index{
+  .background-image{
+    height: 400px;
+    image{
+      height: 400px;
+      width: 100%;
+    }
+  }
+
+  .company-intro{
+    padding: 30px;
+    &__title{
+      padding: 20px;
+      font-size: 40px;
+      font-weight: 600;
+      text-align: center;
+      line-height: 50px;
+    }
+    &__content{
+      font-size: 33px;
+      letter-spacing: 5px;
+      line-height: 48px;
+      text-indent: 70px;
+      color: #666666;
+    }
+  }
+}
+

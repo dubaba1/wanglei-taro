@@ -1,0 +1,41 @@
+$avatarSize:140px;
+$backgroundImgHeight:180px;
+
+.index{
+
+}
+
+.user-detail-header{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  &__background-image{
+    width: 100%;
+    height: $backgroundImgHeight;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+  }
+  &__avatar {
+    width: $avatarSize;
+    height: $avatarSize;
+    border-radius: $avatarSize / 2;
+    overflow: hidden;
+    margin-bottom: 10px;
+    margin-top: $backgroundImgHeight - $avatarSize / 2;
+
+    image {
+      width: $avatarSize;
+      height: $avatarSize;
+    }
+  }
+}
+
+.content-list{
+  padding: 20px 50px;
+}
+
+.single-list{
+  padding-left: 60px;
+}

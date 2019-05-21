@@ -1,0 +1,90 @@
+@import '~taro-ui/dist/style/variables/default.scss';
+.divider-view {
+  height: 40px;
+  background-color: #f0f0f0;
+}
+
+.panel-label {
+  padding: 15px 30px;
+  background-color: #f0f0f0;
+  width: 100%;
+
+  &__title {
+    font-weight: bolder;
+    border-left: 13px solid #6190e8;
+    padding-left: 15px;
+  }
+}
+
+.content-list {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+
+  &__item {
+    display: flex;
+    margin-top: 15px;
+    font-size: 35px;
+
+    &__label {
+      font-weight: 500;
+      color: #333;
+      width: 170px;
+    }
+
+    &__content {
+      margin-left: 20px;
+      color: #666666;
+    }
+  }
+}
+
+.single-list {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+
+  &__item {
+    margin-bottom: 15px;
+  }
+}
+
+.dot {
+  display: inline-block;
+  margin-right: 20px;
+  width: 20px;
+  height: 20px;
+  border: 6px solid #d0d0d0;
+  border-radius: 20px;
+  font-size: 0;
+}
+
+.picker {
+  position:relative;
+  padding:24px 0;
+  color:#333;
+  background-color:#FFF;
+  margin-left:32px;
+  margin-bottom:1PX;
+  position:relative;
+  display: flex;
+border-bottom: 1Px solid $color-border-light;
+  &__label {
+    margin-right: 16px;
+    width: 172px;
+    font-size: 32px;
+    line-height: 1.5;
+    vertical-align: middle;
+    text-align: left;
+  }
+
+  &__value{
+    color:#333;
+    font-size:32px;
+    line-height:1.5;
+    height:auto !important;
+    min-height:auto !important;
+
+  }
+
+}
