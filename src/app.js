@@ -1,13 +1,14 @@
 import '@tarojs/async-await'
-import Taro, { Component } from '@tarojs/taro'
+import Taro, {Component} from '@tarojs/taro'
 import 'taro-ui/dist/style/index.scss' // 全局引入一次即可
 
-import { Provider } from '@tarojs/redux'
+import {Provider} from '@tarojs/redux'
 
 
 import Index from './pages/index'
 import configStore from './store'
 import './app.scss'
+import userActions from './actions/user-action'
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -22,6 +23,7 @@ class App extends Component {
   config = {
     pages: [
       'pages/welcome/index',
+      'pages/welcome/register/index',
       'pages/index/index',
       'pages/employee/employee',
       'pages/employer/employer',
@@ -39,50 +41,62 @@ class App extends Component {
       "selectedColor": "#2BA345",
       "backgroundColor": "#f6f6f6",
       "position": "bottom",
-       list: [{
-         text: "首页",
-         pagePath: "pages/index/index",
-         "iconPath": "assets/icon/主页1.png",
-         "selectedIconPath": "assets/icon/主页.png"
+      list: [{
+        text: "首页",
+        pagePath: "pages/index/index",
+        "iconPath": "assets/icon/主页1.png",
+        "selectedIconPath": "assets/icon/主页.png"
       },
-         {
-           "text": "找工作",
-           "pagePath": "pages/employee/employee",
-           "iconPath": "assets/icon/未选公司.png",
-           "selectedIconPath": "assets/icon/公司.png"
-         },
-         {
-           "text": "找人才",
-           "pagePath": "pages/employer/employer",
-           "iconPath": "assets/icon/未选人才.png",
-           "selectedIconPath": "assets/icon/人才.png"
-         },
-         {
-           "text": "我的",
-           "pagePath": "pages/mine/mine",
-           "iconPath": "assets/icon/我的.png",
-           "selectedIconPath": "assets/icon/我的1.png"
-         }
-    ]
-  }  };
+        {
+          "text": "找工作",
+          "pagePath": "pages/employee/employee",
+          "iconPath": "assets/icon/未选公司.png",
+          "selectedIconPath": "assets/icon/公司.png"
+        },
+        {
+          "text": "找人才",
+          "pagePath": "pages/employer/employer",
+          "iconPath": "assets/icon/未选人才.png",
+          "selectedIconPath": "assets/icon/人才.png"
+        },
+        {
+          "text": "我的",
+          "pagePath": "pages/mine/mine",
+          "iconPath": "assets/icon/我的.png",
+          "selectedIconPath": "assets/icon/我的1.png"
+        }
+      ]
+    }
+  };
 
-  componentDidMount () {}
+  componentDidMount() {
+    // 调用微信登陆接口，获取code
+    Taro.login({
+      success: res => {
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        store.dispatch(userActions.code2session(res.code));
+      }
+    });
+  }
 
-  componentDidShow () {}
+  componentDidShow() {
+  }
 
-  componentDidHide () {}
+  componentDidHide() {
+  }
 
-  componentDidCatchError () {}
+  componentDidCatchError() {
+  }
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
-  render () {
+  render() {
     return (
       <Provider store={store}>
-        <Index />
+        <Index/>
       </Provider>
     )
   }
 }
 
-Taro.render(<App />, document.getElementById('app'))
+Taro.render(<App/>, document.getElementById('app'))
