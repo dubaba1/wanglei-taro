@@ -11,6 +11,13 @@ const changeUserStatus = (status) => {
   }
 };
 
+const changeUserInfo = (userInfo) => {
+  return {
+    type: userActionTypes.CHANGE_USER_INFO,
+    userInfo,
+  }
+};
+
 const code2session = (code) => {
   let codeUrl = '/weChat/applet/login/code2session/' + code;
   // 返回函数，异步dispatch
@@ -110,5 +117,6 @@ export default {
   changeUserStatus,
   code2session,
   register,
-  login
+  login,
+  changeUserInfo
 }

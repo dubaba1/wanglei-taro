@@ -1,56 +1,69 @@
-import Taro, { Component } from '@tarojs/taro'
-import { connect } from '@tarojs/redux'
-import { add, minus, asyncAdd } from '../../actions/counter'
-import { AtButton,AtList, AtListItem } from 'taro-ui'
+import Taro, {Component} from '@tarojs/taro'
+import {connect} from '@tarojs/redux'
+import {add, minus, asyncAdd} from '../../actions/counter'
+import {AtButton, AtList, AtListItem} from 'taro-ui'
 import './mine.scss'
 import userdetail from '../../assets/icon/user-detail.png'
 import zhua from '../../assets/imgs/zhua.jpg'
+import {Image, View} from "@tarojs/components";
 
 
-@connect(({ counter }) => ({
+@connect(({counter}) => ({
   counter
 }), (dispatch) => ({
-  add () {
+  add() {
     dispatch(add())
   },
-  dec () {
+  dec() {
     dispatch(minus())
   },
-  asyncAdd () {
+  asyncAdd() {
     dispatch(asyncAdd())
   }
 }))
 class mine extends Component {
-  todeliver(){
+
+  config = {
+    navigationBarTitleText: '牧星校园'
+  };
+
+  todeliver() {
     Taro.navigateTo({
       url: '/pages/deliver/deliver'
     })
   }
-  tocollection(){
+
+  tocollection() {
     Taro.navigateTo({
       url: '/pages/collection/collection'
     })
   }
-    config = {
-    navigationBarTitleText: '牧星校园'
+
+  skip(url){
+    Taro.navigateTo({
+      url: url
+    })
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     console.log(this.props, nextProps)
   }
 
-  componentWillUnmount () { }
+  componentWillUnmount() {
+  }
 
-  componentDidShow () { }
+  componentDidShow() {
+  }
 
-  componentDidHide () { }
+  componentDidHide() {
+  }
 
-  render () {
+  render() {
     return (
       <View>
         <View className='head'>
           <View>
-            <Image class='head-pic' src={zhua}></Image>
+            <Image class='head-pic' src={zhua}/>
           </View>
           Name
         </View>
@@ -59,12 +72,14 @@ class mine extends Component {
             title='编辑信息'
             arrow='right'
             thumb={userdetail}
+            onClick={this.skip.bind(this,'/pages/user-edit/index')}
           />
           <AtListItem
             title='投递列表'
             arrow='right'
             thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-           onClick={this.todeliver}/>
+            onClick={this.todeliver}
+          />
           <AtListItem
             title='收藏列表'
             arrow='right'

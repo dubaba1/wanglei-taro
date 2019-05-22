@@ -1,21 +1,32 @@
-$avatarSize:140px;
-$backgroundImgHeight:180px;
+$avatarSize: 140px;
+$backgroundImgHeight: 180px;
 
-.index{
+.index {
 
 }
-.baseInfo-edit{
+
+.baseInfo-edit {
   padding: 0 30px;
 }
 
-.content-list{
+.content-list {
   padding: 20px 50px;
 }
 
-.single-list{
+.single-list {
   padding-left: 60px;
 }
 
 .at-input--disabled {
-  opacity:1;
+  opacity: 1;
+}
+
+.panel-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-button {
+  margin-top: 10px;
 }

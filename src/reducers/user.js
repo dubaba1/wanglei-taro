@@ -2,7 +2,10 @@ import {userActionTypes} from '../constants/action-type'
 
 const INITIAL_STATE = {
   status: 0,//登录状态,0未登录，1已经登陆
-  userInfo: {},//用户信息
+  userInfo: {
+    workList:[],
+    educationList:[]
+  },//用户信息
   code2sessionRes: {},//
 };
 
@@ -28,6 +31,11 @@ export default function user(state = INITIAL_STATE, action) {
         ...state,
         userInfo: action.userInfo,
         status: 1
+      };
+    case userActionTypes.CHANGE_USER_INFO:
+      return {
+        ...state,
+        userInfo: action.userInfo,
       };
     default:
       return state
