@@ -23,15 +23,16 @@ class App extends Component {
   config = {
     pages: [
       'pages/welcome/index',
+      'pages/welcome/register/index',
+      'pages/user-edit/index',
       'pages/user-detail/index',
       'pages/company-detail/index',
-      'pages/welcome/register/index',
+      'pages/company-edit/index',
       'pages/index/index',
       'pages/employee/employee',
       'pages/mine/mine',
       'pages/deliver/deliver',
       'pages/collection/collection',
-      'pages/user-edit/index'
     ],
     window: {
       backgroundTextStyle: 'light',

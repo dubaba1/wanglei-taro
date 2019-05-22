@@ -5,22 +5,17 @@ import {AtButton, AtList, AtListItem} from 'taro-ui'
 import './mine.scss'
 import userdetail from '../../assets/icon/user-detail.png'
 import zhua from '../../assets/imgs/zhua.jpg'
+import userActions from "../../actions/user-action";
 import {Image, View} from "@tarojs/components";
 
 
-@connect(({counter}) => ({
-  counter
-}), (dispatch) => ({
-  add() {
-    dispatch(add())
-  },
-  dec() {
-    dispatch(minus())
-  },
-  asyncAdd() {
-    dispatch(asyncAdd())
-  }
-}))
+
+@connect(({user}) => ({...user}),
+  dispatch => ({
+    dispatchSelectUser(openId) {
+      dispatch(userActions.select(openId));
+    }
+  }))
 class mine extends Component {
 
   config = {
@@ -45,27 +40,23 @@ class mine extends Component {
     })
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(this.props, nextProps)
+  companyEdit(){
+    Taro.navigateTo({
+      url:'/pages/company-edit/index'
+    })
   }
 
-  componentWillUnmount() {
-  }
 
-  componentDidShow() {
-  }
 
-  componentDidHide() {
-  }
 
   render() {
     return (
       <View>
         <View className='head'>
           <View>
-            <Image class='head-pic' src={zhua}/>
+            <Image class='head-pic' src={this.props.userInfo.wechatAvatar}></Image>
           </View>
-          Name
+          {this.props.userInfo.nickname}
         </View>
         <AtList>
           <AtListItem
@@ -73,6 +64,12 @@ class mine extends Component {
             arrow='right'
             thumb={userdetail}
             onClick={this.skip.bind(this,'/pages/user-edit/index')}
+          />
+          <AtListItem
+            title='企业信息'
+            arrow='right'
+            thumb={userdetail}
+            onClick={this.companyEdit}
           />
           <AtListItem
             title='投递列表'

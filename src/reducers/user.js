@@ -21,6 +21,11 @@ export default function user(state = INITIAL_STATE, action) {
         ...state,
         status: action.status
       };
+    case userActionTypes.USER_SELECT_SUCCESS:
+      return {
+        ...state,
+        userInfo: action.userInfo
+      };
     case userActionTypes.SET_CODE2SESSION_RES:
       return {
         ...state,
