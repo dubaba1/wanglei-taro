@@ -5,8 +5,16 @@ import { AtButton,AtList, AtListItem } from 'taro-ui'
 import './mine.scss'
 import userdetail from '../../assets/icon/user-detail.png'
 import zhua from '../../assets/imgs/zhua.jpg'
+import userActions from "../../actions/user-action";
 
 
+
+@connect(({user}) => ({...user}),
+  dispatch => ({
+    dispatchSelectUser(openId) {
+      dispatch(userActions.select(openId));
+    }
+  }))
 @connect(({ counter }) => ({
   counter
 }), (dispatch) => ({
@@ -31,11 +39,22 @@ class mine extends Component {
       url: '/pages/collection/collection'
     })
   }
+  UserEdit(){
+    Taro.navigateTo({
+      url: '/pages/user-edit/index'
+    })
+  }
+  companyEdit(){
+    Taro.navigateTo({
+      url:'/pages/company-edit/index'
+    })
+  }
     config = {
     navigationBarTitleText: '牧星校园'
   }
 
   componentWillReceiveProps (nextProps) {
+
     console.log(this.props, nextProps)
   }
 
@@ -50,15 +69,22 @@ class mine extends Component {
       <View>
         <View className='head'>
           <View>
-            <Image class='head-pic' src={zhua}></Image>
+            <Image class='head-pic' src={this.props.userInfo.wechatAvatar}></Image>
           </View>
-          Name
+          {this.props.userInfo.nickname}
         </View>
         <AtList>
           <AtListItem
             title='编辑信息'
             arrow='right'
             thumb={userdetail}
+            onClick={this.UserEdit}
+          />
+          <AtListItem
+            title='企业信息'
+            arrow='right'
+            thumb={userdetail}
+            onClick={this.companyEdit}
           />
           <AtListItem
             title='投递列表'

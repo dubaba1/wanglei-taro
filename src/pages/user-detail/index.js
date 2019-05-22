@@ -4,9 +4,17 @@ import backgroundImg from '../../assets/imgs/图书馆背景.jpg'
 import avatar from '../../assets/imgs/default-avatar.jpg'
 
 import './index.scss'
+import {connect} from "@tarojs/redux";
+import userActions from "../../actions/user-action";
 
+
+@connect(({user}) => ({...user}),
+  dispatch => ({
+    dispatchSelectUser(openId) {
+      dispatch(userActions.select(openId));
+    }
+  }))
 class Index extends Component {
-
   config = {
     navigationBarTitleText: '简历'
   };
@@ -18,6 +26,7 @@ class Index extends Component {
   constructor() {
     super(...arguments);
     this.state = {};
+
   }
 
   render() {
@@ -47,7 +56,7 @@ class Index extends Component {
           </View>
           <View className='content-list__item'>
             <View className='content-list__item__label'>年龄：</View>
-            <View className='content-list__item__content'>18</View>
+            <View className='content-list__item__content'>{this.props.code2sessionRes.openid}</View>
           </View>
           <View className='content-list__item'>
             <View className='content-list__item__label'>所在城市：</View>
@@ -55,7 +64,7 @@ class Index extends Component {
           </View>
           <View className='content-list__item'>
             <View className='content-list__item__label'>联系电话：</View>
-            <View className='content-list__item__content'>13014338982</View>
+            <View className='content-list__item__content'>result.city</View>
           </View>
           <View className='content-list__item'>
             <View className='content-list__item__label'>联系邮箱：</View>

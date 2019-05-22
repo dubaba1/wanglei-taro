@@ -4,7 +4,7 @@ import backgroundImg from '../../assets/imgs/图书馆背景.jpg'
 import avatar from '../../assets/imgs/default-avatar.jpg'
 
 import './index.scss'
-import {AtActionSheet, AtActionSheetItem, AtInput} from "taro-ui";
+import {AtActionSheet, AtActionSheetItem, AtButton, AtInput} from "taro-ui";
 
 class Index extends Component {
 
@@ -133,6 +133,8 @@ class Index extends Component {
             女
           </AtActionSheetItem>
         </AtActionSheet>
+        <AtButton className='bt-t'>提交信息</AtButton>
+
       </View>
     )
   }

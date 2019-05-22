@@ -26,6 +26,11 @@ class employee extends Component {
     config = {
     navigationBarTitleText: '牧星校园'
   }
+  Detail(){
+      Taro.navigateTo({
+        url:'/pages/company-detail/index'
+      })
+  }
 
   componentWillReceiveProps (nextProps) {
     console.log(this.props, nextProps)
@@ -49,6 +54,7 @@ class employee extends Component {
                         extraText='详细信息'
                         thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
                         arrow='right'
+                        onClick={this.Detail}
             />
             <AtListItem className="list"
                         title='公司：华为技术有限公司'

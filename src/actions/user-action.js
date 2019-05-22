@@ -60,6 +60,28 @@ const register = (userInfo) => {
     }
   };
 };
+//select by openId
+const select = (openId) => {
+  return async dispatch => {
+    let result = await API.post("/weChat/user/select"+openId).catch(() => {
+      Taro.showToast({
+        title: '服务请求错误',
+        icon: 'none'
+      })
+    });
+    if (isHttpSuccess(result)) {
+      // 请求成功
+      dispatch({
+        type: userActionTypes.USER_SELECT_SUCCESS,
+        userInfo: result.data
+      });
+      // 调用用户登录的接口
+      dispatch(login(result.data.wechatOpenId));
+    }
+  };
+};
+
+
 
 const login =(openId)=>{
   return async dispatch => {
@@ -110,5 +132,6 @@ export default {
   changeUserStatus,
   code2session,
   register,
-  login
+  login,
+  select
 }
