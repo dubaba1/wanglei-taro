@@ -4,6 +4,13 @@ import API from '../service/api'
 import {isHttpSuccess} from "../utils/common";
 import {COOKIE_KEY} from "../constants/common";
 
+
+const isCollection = (isCollection) =>{
+  return{
+    type:userActionTypes.IS_COLLECTION,
+    isCollection
+  }
+};
 const changeUserStatus = (status) => {
   return {
     type: userActionTypes.CHANGE_LOGIN_STATUS,
@@ -17,6 +24,25 @@ const changeUserInfo = (userInfo) => {
     userInfo,
   }
 };
+
+const changeComInfo = (companyInfo) => {
+  return {
+    type: userActionTypes.CHANGE_COM_INFO,
+    companyInfo,
+  }
+};
+const ShowCompanyList = (companyList) => {
+  return {
+    type: userActionTypes.COMPANY_LIST,
+    companyList
+  }
+}
+const ShowUserList = (userList) => {
+  return {
+    type: userActionTypes.USER_LIST,
+    userList
+  }
+}
 
 const code2session = (code) => {
   let codeUrl = '/weChat/applet/login/code2session/' + code;
@@ -50,7 +76,7 @@ const code2session = (code) => {
 
 const register = (userInfo) => {
   return async dispatch => {
-    let result = await API.post("/weChat/user/register",userInfo).catch(() => {
+    let result = await API.post("/weChat/user/register", userInfo).catch(() => {
       Taro.showToast({
         title: '服务请求错误',
         icon: 'none'
@@ -68,9 +94,9 @@ const register = (userInfo) => {
   };
 };
 
-const login =(openId)=>{
+const login = (openId) => {
   return async dispatch => {
-    let result = await API.get("/weChat/applet/login/byOpenId/"+openId).catch(() => {
+    let result = await API.get("/weChat/applet/login/byOpenId/" + openId).catch(() => {
       Taro.showToast({
         title: '服务请求错误',
         icon: 'none'
@@ -83,40 +109,54 @@ const login =(openId)=>{
         type: userActionTypes.USER_LOGIN_SUCCESS,
         userInfo: result.data
       });
-      //  {
-      //           "text": "找工作",
-      //           "pagePath": "pages/deliver/deliver",
-      //           "iconPath": "assets/icon/未选公司.png",
-      //           "selectedIconPath": "assets/icon/公司.png"
-      //         },
-      //         {
-      //           "text": "找人才",
-      //           "pagePath": "pages/employer/employer",
-      //           "iconPath": "assets/icon/未选人才.png",
-      //           "selectedIconPath": "assets/icon/人才.png"
-      //         },
       Taro.switchTab({
-        url:'/pages/index/index'
+        url: '/pages/index/index'
       });
-      setTimeout(()=>{
-        const text = result.data.type == 0?'找工作':'找人才';
-        const iconPath = result.data.type == 0?'assets/icon/未选公司.png':'assets/icon/未选人才.png';
-        const selectedIconPath = result.data.type == 0?'assets/icon/公司.png':'assets/icon/人才.png';
+
+      if (result.data.type == 0) {
+        API.get("/weChat/com/detail/" + result.data.userId).then(res => {
+          if (res.code == 0) {
+            dispatch(changeComInfo(res.data));
+          }
+        })
+        API.post("/weChat/com/companyList", {}).then(res => {
+          if (res.code == 0) {
+            dispatch(ShowCompanyList(res.data));
+          }
+        })
+      } else{
+        API.post("/weChat/com/userList", {}).then(res => {
+          if (res.code == 0) {
+            dispatch(ShowUserList(res.data));
+          }
+        })
+      }
+
+      setTimeout(() => {
+        const text = result.data.type == 0 ? '找工作' : '找人才';
+        const iconPath = result.data.type == 0 ? 'assets/icon/Noselect-c.png' : 'assets/icon/Noselect-t.png';
+        const selectedIconPath = result.data.type == 0 ? 'assets/icon/company.png' : 'assets/icon/select-t.png';
         Taro.setTabBarItem({
-          index:1,
-          text:text,
-          iconPath:iconPath,
-          selectedIconPath:selectedIconPath
+          index: 1,
+          text: text,
+          iconPath: iconPath,
+          selectedIconPath: selectedIconPath
         });
-      },500);
+      }, 500);
+
+
     }
   };
 };
+
 
 export default {
   changeUserStatus,
   code2session,
   register,
   login,
-  changeUserInfo
+  changeUserInfo,
+  changeComInfo,
+  ShowCompanyList,
+  isCollection
 }

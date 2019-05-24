@@ -3,10 +3,14 @@ import {userActionTypes} from '../constants/action-type'
 const INITIAL_STATE = {
   status: 0,//登录状态,0未登录，1已经登陆
   userInfo: {
-    workList:[],
-    educationList:[]
+    workList: [],
+    educationList: []
   },//用户信息
   code2sessionRes: {},//
+  companyInfo: {},
+  companyList: [],
+  userList:[],
+  isCollection: {},
 };
 
 export default function user(state = INITIAL_STATE, action) {
@@ -42,6 +46,26 @@ export default function user(state = INITIAL_STATE, action) {
         ...state,
         userInfo: action.userInfo,
       };
+    case userActionTypes.CHANGE_COM_INFO:
+      return {
+        ...state,
+        companyInfo: action.companyInfo
+      };
+    case userActionTypes.COMPANY_LIST:
+      return {
+        ...state,
+        companyList: action.companyList
+      };
+    case userActionTypes.USER_LIST:
+      return {
+        ...state,
+        userList: action.userList
+      };
+    case userActionTypes.IS_COLLECTION:
+      return{
+        ...state,
+        isCollection: action.isCollection
+      }
     default:
       return state
   }

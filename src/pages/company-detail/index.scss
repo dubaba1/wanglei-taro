@@ -13,7 +13,7 @@
       padding: 20px;
       font-size: 40px;
       font-weight: 600;
-      text-align: center;
+      text-align: left;
       line-height: 50px;
     }
     &__content{
@@ -25,4 +25,13 @@
     }
   }
 }
-
+.at-fab__icon at-icon at-icon-menu{
+  position: fixed;
+}
+.bt-t{
+  width: 30%;
+}
+.bt-t1{
+  background-color: grey;
+  width: 30%;
+}

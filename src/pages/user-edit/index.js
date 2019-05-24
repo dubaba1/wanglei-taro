@@ -43,13 +43,17 @@ class Index extends Component {
 
   openSelectGender() {
     this.setState({
-      isOpenGenderSelect: true
+      isOpenGenderSelect: true,
+      isOpenAddWork: false,//是否打开添加工作
+      isOpenAddEducation: false,//是否打开添加工作
     })
   }
 
   selectGender(value) {
     this.setState({
       isOpenGenderSelect: false,
+      isOpenAddWork: false,//是否打开添加工作
+      isOpenAddEducation: false,//是否打开添加工作
       user: {
         ...this.state.user,
         gender: value
@@ -204,7 +208,9 @@ class Index extends Component {
 
   handleShowAddWork(flag) {
     this.setState({
-      isOpenAddWork: flag
+      isOpenAddWork: flag,
+      isOpenGenderSelect: false,
+      isOpenAddEducation: false,//是否打开添加工作
     })
   }
 
@@ -222,7 +228,9 @@ class Index extends Component {
         ...this.state.user,
         workList
       },
-      isOpenAddWork: false
+      isOpenAddWork: false,
+      isOpenGenderSelect: false,
+      isOpenAddEducation: false,//是否打开添加工作
     });
   }
 
@@ -239,7 +247,9 @@ class Index extends Component {
 
   handleShowAddEducation(flag) {
     this.setState({
-      isOpenAddEducation: flag
+      isOpenAddEducation: flag,
+      isOpenAddWork: false,
+      isOpenGenderSelect: false,
     })
   }
 
@@ -257,7 +267,9 @@ class Index extends Component {
         ...this.state.user,
         educationList
       },
-      isOpenAddEducation: false
+      isOpenAddEducation: false,
+      isOpenAddWork: false,
+      isOpenGenderSelect: false,
     });
   }
 

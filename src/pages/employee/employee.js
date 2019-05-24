@@ -1,141 +1,126 @@
-import Taro, { Component } from '@tarojs/taro'
-import { connect } from '@tarojs/redux'
-import { add, minus, asyncAdd } from '../../actions/counter'
-import { Input } from '@tarojs/components'
+import Taro, {Component} from '@tarojs/taro'
+import {connect} from '@tarojs/redux'
+import {add, minus, asyncAdd} from '../../actions/counter'
+import {Input} from '@tarojs/components'
 import search from '../../assets/icon/search_normal.png'
-import { AtList, AtListItem  } from 'taro-ui'
+import {AtList, AtListItem,AtSearchBar } from 'taro-ui'
 
 import './employee.scss'
+import userActions from "../../actions/user-action";
+import API from "../../service/api";
 
-
-@connect(({ counter }) => ({
-  counter
-}), (dispatch) => ({
-  add () {
-    dispatch(add())
-  },
-  dec () {
-    dispatch(minus())
-  },
-  asyncAdd () {
-    dispatch(asyncAdd())
-  }
-}))
+@connect(({user}) => ({...user}),
+  dispatch => ({}))
 class employee extends Component {
+  constructor () {
+    super(...arguments)
+    this.state = {
+      value: ''
+    }
+  }
 
-    config = {
+  config = {
     navigationBarTitleText: '牧星校园'
   }
-  Detail(){
-      Taro.navigateTo({
-        url:'/pages/company-detail/index'
-      })
+  companydetail(index) {
+    Taro.navigateTo({
+      url: '/pages/company-detail/index?index=' + index
+    })
   }
+  userdetail(index) {
+    Taro.navigateTo({
+      url: '/pages/user-detail/index?index=' + index
+    })
+  }
+  onChange (value) {
+    this.setState({
+      value: value
+    })
+  }
+  onActionClick () {
+    console.log('开始搜索')
+  }
+  //公司搜索人
+  search1(index){
+    API.post('/weChat/com/selectUserByUserName', index)
+  }
+  //人搜索公司
+  search2(index){
+    API.post('/weChat/com/selectCompanyByName', index)
 
-  componentWillReceiveProps (nextProps) {
+  }
+  componentWillReceiveProps(nextProps) {
     console.log(this.props, nextProps)
   }
 
-  componentWillUnmount () { }
+  // componentWillMount() {
+  //     this.$router.params
+  // }
 
-  componentDidShow () { }
+  render() {
+    const {companyList} = this.props
+    const {userList} = this.props
 
-  componentDidHide () { }
-
-  render () {
+    const isCompany = this.props.userInfo.type == 0;
     return (
-      <view>
-        <view className='r-input'>
-        <Input type='text' className='input' placeholder='公司/职位' focus/>
-          <AtList>
-            <AtListItem className="list"
-                        title='公司：华为技术有限公司'
-                        note='基本信息：华dd通信设备的民营通信科技公司'
-                        extraText='详细信息'
-                        thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-                        arrow='right'
-                        onClick={this.Detail}
+      <View>
+        {
+          isCompany &&
+          <View className='r-input'>
+            <AtSearchBar
+              showActionButton
+              value={this.state.value}
+              onChange={this.onChange.bind(this)}
+              onActionClick={this.onActionClick.bind(this)}
             />
-            <AtListItem className="list"
-                        title='公司：华为技术有限公司'
-                        note='基本信息：华为技术有限公司是一家生产销售通信设备的民营通信科技公司'
-                        extraText='详细信息'
-                        thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-                        arrow='right'
+            <AtList>
+              {
+                companyList.map((item,index)=>{
+                  return (
+                    <AtListItem className="list"
+                                title={item.name}
+                                note={item.intro}
+                                extraText='详细信息'
+                                thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
+                                arrow='right'
+                                onClick={this.companydetail.bind(this,index)}
+                    />
+                  )
+                })
+              }
+            </AtList>
+          </View>
+        }
+        {
+          !isCompany &&
+          <View className='r-input'>
+            <View>
+            <AtSearchBar
+              showActionButton
+              value={this.state.value}
+              onChange={this.onChange.bind(this)}
+              onActionClick={this.onActionClick.bind(this)}
             />
-            <AtListItem className="list"
-                        title='公司：华为技术有限公司'
-                        note='基本信息：华为技术有限公司是一家生产销售通信设备的民营通信科技公司'
-                        extraText='详细信息'
-                        thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-                        arrow='right'
-            />
-            <AtListItem className="list"
-                        title='公司：华为技术有限公司'
-                        note='基本信息：华为技术有限公司是一家生产销售通信设备的民营通信科技公司'
-                        extraText='详细信息'
-                        thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-                        arrow='right'
-            />
-            <AtListItem className="list"
-                        title='公司：华为技术有限公司'
-                        note='基本信息：华为技术有限公司是一家生产销售通信设备的民营通信科技公司'
-                        extraText='详细信息'
-                        thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-                        arrow='right'
-            />
-            <AtListItem className="list"
-                        title='公司：华为技术有限公司'
-                        note='基本信息：华为技术有限公司是一家生产销售通信设备的民营通信科技公司'
-                        extraText='详细信息'
-                        thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-                        arrow='right'
-            />
-            <AtListItem className="list"
-                        title='公司：华为技术有限公司'
-                        note='基本信息：华为技术有限公司是一家生产销售通信设备的民营通信科技公司'
-                        extraText='详细信息'
-                        thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-                        arrow='right'
-            />
-            <AtListItem className="list"
-                        title='公司：华为技术有限公司'
-                        note='基本信息：华为技术有限公司是一家生产销售通信设备的民营通信科技公司'
-                        extraText='详细信息'
-                        thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-                        arrow='right'
-            />
-            <AtListItem className="list"
-                            title='姓名：二蛋'
-                            note='基本信息：河北科技大学大三学生'
-                            extraText='详细信息'
-                            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-                            arrow='right'
-          />
-            <AtListItem className="list"
-                        title='姓名：二蛋'
-                        note='基本信息：河北科技大学大三学生'
-                        extraText='详细信息'
-                        thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-                        arrow='right'
-            />
-            <AtListItem className="list"
-                        title='姓名：二蛋'
-                        note='基本信息：河北科技大学大三学生'
-                        extraText='详细信息'
-                        thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-                        arrow='right'
-            />
-            <AtListItem className="list"
-                        title='姓名：二蛋'
-                        note='基本信息：河北科技大学大三学生'
-                        extraText='详细信息'
-                        thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-                        arrow='right'
-            />
-          </AtList>
-        </view>
-      </view>
+            </View>
+            <AtList>
+              {
+                userList.map((item,index)=>{
+                  return (
+                    <AtListItem className="list1"
+                                title={item.nickname}
+                                note={item.education}
+                                extraText='详细信息'
+                                thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
+                                arrow='right'
+                                onClick={this.userdetail.bind(this,index)}
+                    />
+                  )
+                })
+              }
+            </AtList>
+          </View>
+        }
+      </View>
     )
   }
 }

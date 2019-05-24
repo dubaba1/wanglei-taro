@@ -55,8 +55,8 @@ class App extends Component {
         {
           "text": "找工作",
           "pagePath": "pages/employee/employee",
-          "iconPath": "assets/icon/未选公司.png",
-          "selectedIconPath": "assets/icon/公司.png"
+          "iconPath": "assets/icon/Noselect-c.png",
+          "selectedIconPath": "assets/icon/company.png"
         },
 
         {
