@@ -3,16 +3,20 @@ import {connect} from '@tarojs/redux'
 import {add, minus, asyncAdd} from '../../actions/counter'
 import {Input} from '@tarojs/components'
 import search from '../../assets/icon/search_normal.png'
-import {AtList, AtListItem,AtSearchBar } from 'taro-ui'
+import {AtList, AtListItem, AtSearchBar} from 'taro-ui'
 
 import './employee.scss'
 import userActions from "../../actions/user-action";
 import API from "../../service/api";
 
 @connect(({user}) => ({...user}),
-  dispatch => ({}))
+  dispatch => ({
+    dispatchChangeCompanyDetail(companyDetail) {
+      dispatch(userActions.setCompanyDetail(companyDetail));
+    }
+  }))
 class employee extends Component {
-  constructor () {
+  constructor() {
     super(...arguments)
     this.state = {
       value: ''
@@ -22,33 +26,41 @@ class employee extends Component {
   config = {
     navigationBarTitleText: '牧星校园'
   }
+
   companydetail(index) {
+    this.props.dispatchChangeCompanyDetail(this.props.companyList[index]);
     Taro.navigateTo({
-      url: '/pages/company-detail/index?index=' + index
+      url: '/pages/company-detail/index'
     })
   }
+
   userdetail(index) {
     Taro.navigateTo({
       url: '/pages/user-detail/index?index=' + index
     })
   }
-  onChange (value) {
+
+  onChange(value) {
     this.setState({
       value: value
     })
   }
-  onActionClick () {
+
+  onActionClick() {
     console.log('开始搜索')
   }
+
   //公司搜索人
-  search1(index){
+  search1(index) {
     API.post('/weChat/com/selectUserByUserName', index)
   }
+
   //人搜索公司
-  search2(index){
+  search2(index) {
     API.post('/weChat/com/selectCompanyByName', index)
 
   }
+
   componentWillReceiveProps(nextProps) {
     console.log(this.props, nextProps)
   }
@@ -75,7 +87,7 @@ class employee extends Component {
             />
             <AtList>
               {
-                companyList.map((item,index)=>{
+                companyList.map((item, index) => {
                   return (
                     <AtListItem className="list"
                                 title={item.name}
@@ -83,7 +95,7 @@ class employee extends Component {
                                 extraText='详细信息'
                                 thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
                                 arrow='right'
-                                onClick={this.companydetail.bind(this,index)}
+                                onClick={this.companydetail.bind(this, index)}
                     />
                   )
                 })
@@ -95,16 +107,16 @@ class employee extends Component {
           !isCompany &&
           <View className='r-input'>
             <View>
-            <AtSearchBar
-              showActionButton
-              value={this.state.value}
-              onChange={this.onChange.bind(this)}
-              onActionClick={this.onActionClick.bind(this)}
-            />
+              <AtSearchBar
+                showActionButton
+                value={this.state.value}
+                onChange={this.onChange.bind(this)}
+                onActionClick={this.onActionClick.bind(this)}
+              />
             </View>
             <AtList>
               {
-                userList.map((item,index)=>{
+                userList.map((item, index) => {
                   return (
                     <AtListItem className="list1"
                                 title={item.nickname}
@@ -112,7 +124,7 @@ class employee extends Component {
                                 extraText='详细信息'
                                 thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
                                 arrow='right'
-                                onClick={this.userdetail.bind(this,index)}
+                                onClick={this.userdetail.bind(this, index)}
                     />
                   )
                 })

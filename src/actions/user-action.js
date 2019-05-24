@@ -149,6 +149,12 @@ const login = (openId) => {
   };
 };
 
+const setCompanyDetail=(companyDetail)=>{
+  return {
+    type:userActionTypes.CHANGE_COMPANY_DETAIL,
+    companyDetail
+  }
+}
 
 export default {
   changeUserStatus,
@@ -158,5 +164,6 @@ export default {
   changeUserInfo,
   changeComInfo,
   ShowCompanyList,
-  isCollection
+  isCollection,
+  setCompanyDetail
 }

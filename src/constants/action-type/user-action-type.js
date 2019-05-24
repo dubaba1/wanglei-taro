@@ -10,6 +10,8 @@ const CHANGE_COM_INFO = prefix + 'change_com';
 const COMPANY_LIST = prefix + 'company_list';
 const USER_LIST = prefix + 'user_list';
 const IS_COLLECTION=prefix+'is_collection';
+const CHANGE_COMPANY_DETAIL = prefix+'change_company_detail';
+
 export default {
   CHANGE_LOGIN_STATUS,
   SET_CODE2SESSION_RES,
@@ -21,4 +23,5 @@ export default {
   COMPANY_LIST,
   USER_LIST,
   IS_COLLECTION,
+  CHANGE_COMPANY_DETAIL
 }

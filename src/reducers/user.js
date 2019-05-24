@@ -11,6 +11,7 @@ const INITIAL_STATE = {
   companyList: [],
   userList:[],
   isCollection: {},
+  companyDetail:{}
 };
 
 export default function user(state = INITIAL_STATE, action) {
@@ -65,7 +66,12 @@ export default function user(state = INITIAL_STATE, action) {
       return{
         ...state,
         isCollection: action.isCollection
-      }
+      };
+    case userActionTypes.CHANGE_COMPANY_DETAIL:
+      return {
+        ...state,
+        companyDetail: action.companyDetail
+      };
     default:
       return state
   }

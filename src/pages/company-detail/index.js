@@ -13,7 +13,7 @@ import {isHttpSuccess, showToast} from "../../utils/common";
     dispatchChangeUserInfo(userInfo) {
       dispatch(userActions.changeUserInfo(userInfo));
     },
-    dispatchisCollection(isCollection){
+    dispatchisCollection(isCollection) {
       dispatch(userActions.isCollection(isCollection));
     }
   }))
@@ -26,48 +26,83 @@ class Index extends Component {
   componentWillReceiveProps(nextProps) {
     console.log(this.props, nextProps)
   }
+
   constructor() {
     super(...arguments);
     this.state = {
-      ptpUserCollect:JSON.parse(JSON.stringify(this.props.isCollection))
+      isCollection: false
     };
   }
-  save(){
+
+  save() {
     API.post('/weChat/com/insertCollectList', this.state.company)
-    if(isHttpSuccess(res)){
+    if (isHttpSuccess(res)) {
       showToast("收藏成功", true);
       this.props.dispatchChangeUserInfo(this.state.company);
-      setTimeout(()=>{
+      setTimeout(() => {
         Taro.navigateBack();
-      },500);
+      }, 500);
     }
   }
-  cancle(){
+
+  cancle() {
     API.post('/weChat/com/deleteCollectList', this.state.company)
-    if(isHttpSuccess(res)){
+    if (isHttpSuccess(res)) {
 
     }
   }
-  componentWillMount(){
-    API.post('/weChat/com/selectCollection', this.state.ptpUserCollect).then(res => {
+
+  componentWillMount() {
+    // 能获取到company_user_id,知道是否是收藏了的
+    const {userId} = this.props.companyDetail; //
+    API.post('/weChat/com/selectCollection', {companyUserId: userId}).then(res => {
       if (isHttpSuccess(res)) {
-        this.props.dispatchisCollection(res.data);
+        // 如果是收藏的
+        this.setState({
+          isCollection: res.isCollection
+        })
       }
     })
+  }
 
+  collectionCompany() {
+    const {userId} = this.props.companyDetail; //
+    API.post("/weChat/com/insertCollectList", {companyUserId: userId}).then(res => {
+      if (isHttpSuccess(res)) {
+        console.log("收藏成功");
+        showToast("收藏成功",true);
+        // 如果是收藏的
+        this.setState({
+          isCollection: true
+        })
+      }
+    })
+  }
+
+  delCollection(){
+    const {userId} = this.props.companyDetail; //
+    API.post("/weChat/com/deleteCollectList", {companyUserId: userId}).then(res => {
+      if (isHttpSuccess(res)) {
+        // 如果是收藏的
+        console.log("取消收藏成功");
+        showToast("取消成功",true);
+        this.setState({
+          isCollection: false
+        })
+      }
+    })
   }
 
   render() {
-    const company = this.props.companyList[this.$router.params.index];
-
+    const company = this.props.companyDetail;
     const isList = this.props.isCollection === 0;
-
+    const {isCollection} = this.state;
     return (
       <View className='index'>
         <View className='background-image'>
-          <Image src={companyImg} />
+          <Image src={companyImg}/>
         </View>
-        <View className='divider-view' />
+        <View className='divider-view'/>
         <View className='content-list'>
           <View className='content-list__item'>
             <View className='content-list__item__label'>公司名称：</View>
@@ -86,7 +121,7 @@ class Index extends Component {
             <View className='content-list__item__content'>{company.place}</View>
           </View>
         </View>
-        <View className='divider-view' />
+        <View className='divider-view'/>
         <View className='company-intro'>
           <View className='company-intro__title'>公司介绍</View>
           <View className='company-intro__content'>
@@ -94,15 +129,15 @@ class Index extends Component {
           </View>
         </View>
         {
-          isList &&
-      <View>
-        <AtButton className='bt-t' type='primary' >收藏</AtButton>
-      </View>
+          !isCollection &&
+          <View>
+            <AtButton className='bt-t' type='primary' onClick={this.collectionCompany.bind(this)}>收藏</AtButton>
+          </View>
         }
         {
-          !isList &&
+          isCollection &&
           <View>
-            <AtButton className='bt-t1' type='primary' >取消收藏</AtButton>
+            <AtButton className='bt-t1' type='primary' onClick={this.delCollection.bind(this)}>取消收藏</AtButton>
           </View>
         }
       </View>
