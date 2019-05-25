@@ -35,24 +35,6 @@ class Index extends Component {
     };
   }
 
-  save() {
-    API.post('/weChat/com/insertCollectList', this.state.company)
-    if (isHttpSuccess(res)) {
-      showToast("收藏成功", true);
-      this.props.dispatchChangeUserInfo(this.state.company);
-      setTimeout(() => {
-        Taro.navigateBack();
-      }, 500);
-    }
-  }
-
-  cancle() {
-    API.post('/weChat/com/deleteCollectList', this.state.company)
-    if (isHttpSuccess(res)) {
-
-    }
-  }
-
   componentWillMount() {
     // 能获取到company_user_id,知道是否是收藏了的
     const {userId} = this.props.companyDetail; //

@@ -1,16 +1,9 @@
 import Taro, {Component} from '@tarojs/taro'
 import {connect} from '@tarojs/redux'
-import {add, minus, asyncAdd} from '../../actions/counter'
-import {Input} from '@tarojs/components'
-import search from '../../assets/icon/search_normal.png'
-import {AtList, AtListItem, AtSearchBar} from 'taro-ui'
-
+import {AtList, AtListItem, AtSearchBar,AtModal, AtModalContent, AtModalAction} from 'taro-ui'
 import './employee.scss'
 import userActions from "../../actions/user-action";
 import API from "../../service/api";
-import {userActionTypes} from "../../constants/action-type";
-import {applyMiddleware as dispatch} from "redux";
-
 @connect(({user}) => ({...user}),
   dispatch => ({
     dispatchChangeCompanyDetail(companyDetail) {
@@ -18,6 +11,9 @@ import {applyMiddleware as dispatch} from "redux";
     },
     dispatchShowCompanyList(companyList){
       dispatch(userActions.ShowCompanyList(companyList));
+    },
+    dispatchShowUserList(userList){
+      dispatch(userActions.ShowUserList(userList));
     }
   }),
 )
@@ -51,19 +47,21 @@ class employee extends Component {
       value: value
     })
   }
-
-  onActionClick() {
-    API.post('/weChat/com/selectCompanyByName', {name : this.state.value}).then(res => {
-      this.props.dispatchShowCompanyList(res.data)
+  //企业搜索学生
+  onActionClickUse() {
+    API.post('/weChat/user/selectUserByName', {nickname : this.state.value}).then(res => {
+      this.props.dispatchShowUserList(res.data)
       console.log(res.data)
     })
   }
+  //学生搜索企业
+  onActionClick(){
+    API.post('/weChat/com/selectCompanyByName', {name : this.state.value}).then(res => {
+      this.props.dispatchShowCompanyList(res.data)
 
-  //公司搜索人
-  search1(index) {
-    API.post('/weChat/com/selectUserByUserName', index)
+      console.log(res.data)
+    })
   }
-
   componentWillReceiveProps(nextProps) {
     console.log(this.props, nextProps)
   }
@@ -75,7 +73,6 @@ class employee extends Component {
   render() {
     const {companyList} = this.props
     const {userList} = this.props
-
     const isCompany = this.props.userInfo.type == 0;
     return (
       <View>
@@ -88,6 +85,15 @@ class employee extends Component {
               onChange={this.onChange.bind(this)}
               onActionClick={this.onActionClick.bind(this)}
             />
+            {
+              companyList==false &&
+              <AtModal isOpened>
+                <AtModalContent>
+                  这里是正文内容，欢迎加入京东凹凸实验室
+                </AtModalContent>
+                <AtModalAction> <Button>取消</Button> <Button>确定</Button> </AtModalAction>
+              </AtModal>
+            }
             <AtList>
               {
                 companyList.map((item, index) => {
@@ -114,7 +120,7 @@ class employee extends Component {
                 showActionButton
                 value={this.state.value}
                 onChange={this.onChange.bind(this)}
-                onActionClick={this.onActionClick.bind(this)}
+                onActionClick={this.onActionClickUse.bind(this)}
               />
             </View>
             <AtList>

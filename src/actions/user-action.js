@@ -152,6 +152,7 @@ export default {
   changeUserInfo,
   changeComInfo,
   ShowCompanyList,
+  ShowUserList,
   isCollection,
   setCompanyDetail
 }

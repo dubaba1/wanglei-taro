@@ -13,7 +13,7 @@ import userActions from "../../actions/user-action";
       dispatch(userActions.setCompanyDetail(companyDetail));
     }
   }))
-class deliver extends Component {
+class collection extends Component {
   constructor() {
     super(...arguments)
     this.state = {
@@ -62,7 +62,7 @@ class deliver extends Component {
               <AtCard className='de-card'
                       title={item.name}
                       note={item.place}
-                      extra='[公司详情]'
+                      extra='[公司详情]' onClick={this.toCollection.bind(this,index)}
                       thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
               >
                 职位：掏粪
@@ -76,4 +76,4 @@ class deliver extends Component {
   }
 }
 
-export default deliver
+export default collection

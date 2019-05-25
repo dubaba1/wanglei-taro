@@ -50,6 +50,7 @@ class mine extends Component {
 
 
   render() {
+    const userOrCompany=this.props.userInfo.type==0;
     return (
       <View>
         <View className='head'>
@@ -59,24 +60,33 @@ class mine extends Component {
           {this.props.userInfo.nickname}
         </View>
         <AtList>
-          <AtListItem
-            title='编辑信息'
-            arrow='right'
-            thumb={userdetail}
-            onClick={this.skip.bind(this,'/pages/user-edit/index')}
-          />
+          {
+            userOrCompany &&
+            <AtListItem
+              title='学生信息'
+              arrow='right'
+              thumb={userdetail}
+              onClick={this.skip.bind(this, '/pages/user-edit/index')}
+            />
+          }
+          {
+            ! userOrCompany &&
           <AtListItem
             title='企业信息'
             arrow='right'
             thumb={userdetail}
             onClick={this.companyEdit}
           />
-          <AtListItem
-            title='投递列表'
-            arrow='right'
-            thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-            onClick={this.todeliver}
-          />
+          }
+          {
+            userOrCompany &&
+            <AtListItem
+              title='投递列表'
+              arrow='right'
+              thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
+              onClick={this.todeliver}
+            />
+          }
           <AtListItem
             title='收藏列表'
             arrow='right'
