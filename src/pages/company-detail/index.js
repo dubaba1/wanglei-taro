@@ -30,7 +30,8 @@ class Index extends Component {
   constructor() {
     super(...arguments);
     this.state = {
-      isCollection: false
+      isCollection: false,
+      isDeliver:false
     };
   }
 
@@ -63,11 +64,20 @@ class Index extends Component {
         })
       }
     })
-  }
 
+    API.post('/weChat/com/selectDeliver', {companyUserId: userId}).then(res => {
+      if (isHttpSuccess(res)) {
+        // 如果是投递的
+        this.setState({
+          isDeliver: res.isDeliver
+        })
+      }
+    })
+  }
   collectionCompany() {
     const {userId} = this.props.companyDetail; //
     API.post("/weChat/com/insertCollectList", {companyUserId: userId}).then(res => {
+      console.log(res);
       if (isHttpSuccess(res)) {
         console.log("收藏成功");
         showToast("收藏成功",true);
@@ -93,10 +103,37 @@ class Index extends Component {
     })
   }
 
+  deliverCompany() {
+    const {userId} = this.props.companyDetail; //
+    API.post("/weChat/com/insertDeliverList", {companyUserId: userId}).then(res => {
+      if (isHttpSuccess(res)) {
+        console.log("投递成功");
+        showToast("投递成功",true);
+        // 如果是投递的
+        this.setState({
+          isDeliver: true
+        })
+      }
+    })
+  }
+
+  delDeliver(){
+    const {userId} = this.props.companyDetail; //
+    API.post("/weChat/com/deleteDelivertList", {companyUserId: userId}).then(res => {
+      if (isHttpSuccess(res)) {
+        // 如果是收藏的
+        console.log("取消投递成功");
+        showToast("取消成功",true);
+        this.setState({
+          isDeliver: false
+        })
+      }
+    })
+  }
   render() {
     const company = this.props.companyDetail;
-    const isList = this.props.isCollection === 0;
     const {isCollection} = this.state;
+    const {isDeliver} =this.state;
     return (
       <View className='index'>
         <View className='background-image'>
@@ -138,6 +175,18 @@ class Index extends Component {
           isCollection &&
           <View>
             <AtButton className='bt-t1' type='primary' onClick={this.delCollection.bind(this)}>取消收藏</AtButton>
+          </View>
+        }
+        {
+          !isDeliver &&
+          <View>
+            <AtButton className='bt-t' type='primary' onClick={this.deliverCompany.bind(this)}>投递</AtButton>
+          </View>
+        }
+        {
+          isDeliver &&
+          <View>
+            <AtButton className='bt-t' type='primary' onClick={this.delDeliver.bind(this)}>取消投递</AtButton>
           </View>
         }
       </View>

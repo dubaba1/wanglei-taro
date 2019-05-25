@@ -41,58 +41,25 @@ class deliver extends Component {
   componentDidHide () { }
 
   render () {
+    const {companyList} = this.state;
+
     return (
-      <View >
-        <View className='head'>投递列表</View>
-        < AtCard className='de-card'
-          title='谷歌公司'
-                extra='[查看]' onClick={this.tocollection}
-          thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-        >
-          职位：掏粪
-        </AtCard>
-        < AtCard className='de-card'
-                 title='谷歌公司'
-                 extra='[查看]' onClick={this.tocollection}
-                 thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-        >
-          职位：掏粪
-        </AtCard>
-        < AtCard className='de-card'
-                 title='谷歌公司'
-                 extra='[查看]' onClick={this.tocollection}
-                 thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-        >
-          职位：掏粪
-        </AtCard>
-        < AtCard className='de-card'
-                 title='谷歌公司'
-                 extra='[查看]' onClick={this.tocollection}
-                 thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-        >
-          职位：掏粪
-        </AtCard>
-        < AtCard className='de-card'
-                 title='谷歌公司'
-                 extra='[查看]' onClick={this.tocollection}
-                 thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-        >
-          职位：掏粪
-        </AtCard>
-        < AtCard className='de-card'
-                 title='谷歌公司'
-                 extra='[查看]' onClick={this.tocollection}
-                 thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-        >
-          职位：掏粪
-        </AtCard>
-        < AtCard className='de-card'
-                 title='谷歌公司'
-                 extra='[查看]' onClick={this.tocollection}
-                 thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-        >
-          职位：掏粪
-        </AtCard>
+      <View>
+        <View className='head'>收藏列表</View>
+        {
+          companyList.map((item,index) => {
+            return (
+              <AtCard className='de-card'
+                      title={item.name}
+                      note={item.place}
+                      extra='[公司详情]' onClick={this.toCollection.bind(this,index)}
+                      thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
+              >
+                职位：掏粪
+              </AtCard>
+            )
+          })
+        }
       </View>
 
     )

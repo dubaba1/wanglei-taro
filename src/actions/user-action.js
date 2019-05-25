@@ -132,18 +132,6 @@ const login = (openId) => {
         })
       }
 
-      setTimeout(() => {
-        const text = result.data.type == 0 ? '找工作' : '找人才';
-        const iconPath = result.data.type == 0 ? 'assets/icon/Noselect-c.png' : 'assets/icon/Noselect-t.png';
-        const selectedIconPath = result.data.type == 0 ? 'assets/icon/company.png' : 'assets/icon/select-t.png';
-        Taro.setTabBarItem({
-          index: 1,
-          text: text,
-          iconPath: iconPath,
-          selectedIconPath: selectedIconPath
-        });
-      }, 500);
-
 
     }
   };
