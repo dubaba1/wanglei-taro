@@ -144,6 +144,13 @@ const setCompanyDetail=(companyDetail)=>{
   }
 }
 
+const setUserDetail=(userDetail)=>{
+  return {
+    type:userActionTypes.CHANGE_USER_DETAIL,
+    userDetail
+  }
+}
+
 export default {
   changeUserStatus,
   code2session,
@@ -154,5 +161,6 @@ export default {
   ShowCompanyList,
   ShowUserList,
   isCollection,
-  setCompanyDetail
+  setCompanyDetail,
+  setUserDetail
 }

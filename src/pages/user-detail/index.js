@@ -6,7 +6,7 @@ import avatar from '../../assets/imgs/default-avatar.jpg'
 import './index.scss'
 import {connect} from "@tarojs/redux";
 import userActions from "../../actions/user-action";
-import {AtIcon} from "taro-ui";
+import {AtButton, AtIcon} from "taro-ui";
 import API from "../../service/api";
 import {isHttpSuccess, showToast} from "../../utils/common";
 
@@ -27,22 +27,63 @@ class Index extends Component {
     console.log(this.props, nextProps)
   }
 
+
   constructor() {
     super(...arguments);
-    this.state = {};
+    this.state = {
+      isCollection: false}
+  };
 
+  componentWillMount() {
+    // 能获取到人才的company_user_id,知道是否是收藏了的
+    const {userId} = this.props.userDetail; //
+    API.post('/weChat/user/selectCompanyCollection', {userId: userId}).then(res => {
+      if (isHttpSuccess(res)) {
+        // 如果是收藏的
+        this.setState({
+          isCollection: res.isCollection
+        })
+      }
+    })
   }
-
+  //点击收藏
+  collectionUser(){
+    const {userId} = this.props.userDetail; //
+    API.post("/weChat/user/insertCollectList", {userId: userId}).then(res => {
+      console.log(res);
+      if (isHttpSuccess(res)) {
+        showToast("收藏成功",true);
+        // 如果是收藏的
+        this.setState({
+          isCollection: true
+        })
+      }
+    })
+  }
+    //取消收藏
+  delCollection(){
+    const {userId} = this.props.userDetail; //
+    API.post("/weChat/user/deleteCollectList", {userId: userId}).then(res => {
+      if (isHttpSuccess(res)) {
+        // 如果是收藏的
+        showToast("取消成功",true);
+        this.setState({
+          isCollection: false
+        })
+      }
+    })
+  }
   render() {
-    let user = this.props.userList[this.$router.params.index];
-    if (user == null) user = {};
+    const userDetail = this.props.userDetail;
+
+    const {isCollection} = this.state;
 
     return (
       <View className='index'>
         <View className='user-detail-header'>
           <Image src={backgroundImg} className='user-detail-header__background-image'/>
           <View className='user-detail-header__avatar'>
-            <Image src={user.wechatAvatar}  />
+            <Image  />
           </View>
         </View>
         <View className='panel-label'>
@@ -51,7 +92,7 @@ class Index extends Component {
         <View className='content-list user-detail-desc'>
           <View className='content-list__item'>
             <View className='content-list__item__label'>姓名</View>
-            <View className='content-list__item__content'>{user.nickname}</View>
+            <View className='content-list__item__content'>{userDetail.nickname}</View>
           </View>
           <View className='content-list__item'>
             <View className='content-list__item__label'>性别：</View>
@@ -63,56 +104,68 @@ class Index extends Component {
           </View>
           <View className='content-list__item'>
             <View className='content-list__item__label'>年龄：</View>
-            <View className='content-list__item__content'>{user.age}</View>
+            <View className='content-list__item__content'></View>
           </View>
           <View className='content-list__item'>
             <View className='content-list__item__label'>所在城市：</View>
-            <View className='content-list__item__content'>{user.city}</View>
+            <View className='content-list__item__content'></View>
           </View>
           <View className='content-list__item'>
             <View className='content-list__item__label'>联系电话：</View>
-            <View className='content-list__item__content'>{user.mobile}</View>
+            <View className='content-list__item__content'></View>
           </View>
           <View className='content-list__item'>
             <View className='content-list__item__label'>联系邮箱：</View>
-            <View className='content-list__item__content'>{user.email}</View>
+            <View className='content-list__item__content'></View>
           </View>
         </View>
         <View className='panel-label'>
           <View className='panel-label__title'>学历信息</View>
         </View>
-        <View className='single-list'>
-          {
-            user.educationList.map((item, index) => {
-              return (
-                <View className='single-list__item'>
-                  <View>
-                    <View className='dot' />
-                    <Text> {item}</Text>
-                  </View>
+        {/*<View className='single-list'>*/}
+          {/*{*/}
+            {/*user.educationList.map((item, index) => {*/}
+              {/*return (*/}
+                {/*<View className='single-list__item'>*/}
+                  {/*<View>*/}
+                    {/*<View className='dot' />*/}
+                    {/*<Text> {item}</Text>*/}
+                  {/*</View>*/}
 
-                </View>
-              )
-            })
-          }
-        </View>
+                {/*</View>*/}
+              {/*)*/}
+            {/*})*/}
+          {/*}*/}
+        {/*</View>*/}
         <View className='panel-label'>
           <View className='panel-label__title'>工作经历</View>
         </View>
-        <View className='single-list'>
-          {
-            user.workList.map((item, index) => {
-              return (
-                <View className='single-list__item'>
-                  <View>
-                    <View className='dot' />
-                    <Text> {item}</Text>
-                  </View>
-                </View>
-              )
-            })
-          }
-        </View>
+        {/*<View className='single-list'>*/}
+          {/*{*/}
+            {/*user.workList.map((item, index) => {*/}
+              {/*return (*/}
+                {/*<View className='single-list__item'>*/}
+                  {/*<View>*/}
+                    {/*<View className='dot' />*/}
+                    {/*<Text> {item}</Text>*/}
+                  {/*</View>*/}
+                {/*</View>*/}
+              {/*)*/}
+            {/*})*/}
+          {/*}*/}
+        {/*</View>*/}
+        {
+          !isCollection &&
+          <View>
+            <AtButton className='bt-t' type='primary' onClick={this.collectionUser.bind(this)} >收藏</AtButton>
+          </View>
+        }
+        {
+          isCollection &&
+          <View>
+            <AtButton className='bt-t1' type='primary' onClick={this.delCollection.bind(this)}>取消收藏</AtButton>
+          </View>
+        }
       </View>
     )
   }

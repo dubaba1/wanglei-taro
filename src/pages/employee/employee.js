@@ -14,6 +14,9 @@ import API from "../../service/api";
     },
     dispatchShowUserList(userList){
       dispatch(userActions.ShowUserList(userList));
+    },
+    dispatchChangeUserDetail(userDetail){
+      dispatch(userActions.setUserDetail(userDetail));
     }
   }),
 )
@@ -37,8 +40,9 @@ class employee extends Component {
   }
 
   userdetail(index) {
+    this.props.dispatchChangeUserDetail(this.props.userList[index]);
     Taro.navigateTo({
-      url: '/pages/user-detail/index?index=' + index
+      url: '/pages/user-detail/index'
     })
   }
 
@@ -47,14 +51,14 @@ class employee extends Component {
       value: value
     })
   }
-  //企业搜索学生
+  //企业搜索学生     学历或者居住城市
   onActionClickUse() {
     API.post('/weChat/user/selectUserByName', {nickname : this.state.value}).then(res => {
       this.props.dispatchShowUserList(res.data)
       console.log(res.data)
     })
   }
-  //学生搜索企业
+  //学生搜索企业    公司名或者工作岗位
   onActionClick(){
     API.post('/weChat/com/selectCompanyByName', {name : this.state.value}).then(res => {
       this.props.dispatchShowCompanyList(res.data)
@@ -71,8 +75,8 @@ class employee extends Component {
   // }
 
   render() {
-    const {companyList} = this.props
-    const {userList} = this.props
+    const {companyList} = this.props;
+    const {userList} = this.props;
     const isCompany = this.props.userInfo.type == 0;
     return (
       <View>
@@ -85,15 +89,15 @@ class employee extends Component {
               onChange={this.onChange.bind(this)}
               onActionClick={this.onActionClick.bind(this)}
             />
-            {
-              companyList==false &&
-              <AtModal isOpened>
-                <AtModalContent>
-                  这里是正文内容，欢迎加入京东凹凸实验室
-                </AtModalContent>
-                <AtModalAction> <Button>取消</Button> <Button>确定</Button> </AtModalAction>
-              </AtModal>
-            }
+            {/*{*/}
+              {/*companyList==false &&*/}
+              {/*<AtModal isOpened>*/}
+                {/*<AtModalContent>*/}
+                  {/*这里是正文内容，欢迎加入京东凹凸实验室*/}
+                {/*</AtModalContent>*/}
+                {/*<AtModalAction> <Button>取消</Button> <Button>确定</Button> </AtModalAction>*/}
+              {/*</AtModal>*/}
+            {/*}*/}
             <AtList>
               {
                 companyList.map((item, index) => {
