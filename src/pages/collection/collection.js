@@ -52,7 +52,7 @@ class collection extends Component {
     })
     API.get("/weChat/user/list/collectUser").then(res => {
       if (isHttpSuccess(res)) {
-        // 如果是收藏的
+        // 获取收藏的人才列表
         console.log(res);
         this.setState({
           userList: res.data
@@ -104,7 +104,7 @@ class collection extends Component {
               <AtCard className='de-card'
                       title={item.nickname}
                       note={item.education}
-                      extra='[公司详情]' onClick={this.toCollectionUser.bind(this,index)}
+                      extra='[人才信息]' onClick={this.toCollectionUser.bind(this,index)}
                       thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
               >
                 城市：{item.city}
