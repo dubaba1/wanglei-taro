@@ -73,7 +73,7 @@ class deliver extends Component {
                       extra='[公司详情]' onClick={this.toDeliver.bind(this,index)}
                       thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
               >
-                职位：掏粪
+                职位：{item.jobs}
               </AtCard>
             )
           })

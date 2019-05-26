@@ -51,7 +51,7 @@ class employee extends Component {
       value: value
     })
   }
-  //企业搜索学生     学历或者居住城市
+  //企业搜索学生
   onActionClickUse() {
     API.post('/weChat/user/selectUserByName', {nickname : this.state.value}).then(res => {
       this.props.dispatchShowUserList(res.data)

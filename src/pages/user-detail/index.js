@@ -96,32 +96,32 @@ class Index extends Component {
           </View>
           <View className='content-list__item'>
             <View className='content-list__item__label'>性别：</View>
-            <View className='content-list__item__content'>男</View>
+            <View className='content-list__item__content'>{userDetail.gender}</View>
           </View>
           <View className='content-list__item'>
             <View className='content-list__item__label'>学历：</View>
-            <View className='content-list__item__content'>本科</View>
+            <View className='content-list__item__content'>{userDetail.education}</View>
           </View>
           <View className='content-list__item'>
-            <View className='content-list__item__label'>年龄：</View>
-            <View className='content-list__item__content'></View>
+            <View className='content-list__item__label'>出生年月：</View>
+            <View className='content-list__item__content'>{userDetail.birthday}</View>
           </View>
           <View className='content-list__item'>
             <View className='content-list__item__label'>所在城市：</View>
-            <View className='content-list__item__content'></View>
+            <View className='content-list__item__content'>{userDetail.city}</View>
           </View>
           <View className='content-list__item'>
             <View className='content-list__item__label'>联系电话：</View>
-            <View className='content-list__item__content'></View>
+            <View className='content-list__item__content'>{userDetail.mobile}</View>
           </View>
           <View className='content-list__item'>
             <View className='content-list__item__label'>联系邮箱：</View>
-            <View className='content-list__item__content'></View>
+            <View className='content-list__item__content'>{userDetail.email}</View>
           </View>
         </View>
-        <View className='panel-label'>
-          <View className='panel-label__title'>学历信息</View>
-        </View>
+        {/*<View className='panel-label'>*/}
+          {/*<View className='panel-label__title'>学历信息</View>*/}
+        {/*</View>*/}
         {/*<View className='single-list'>*/}
           {/*{*/}
             {/*user.educationList.map((item, index) => {*/}
@@ -129,7 +129,7 @@ class Index extends Component {
                 {/*<View className='single-list__item'>*/}
                   {/*<View>*/}
                     {/*<View className='dot' />*/}
-                    {/*<Text> {item}</Text>*/}
+                    {/*<Text> {item.}</Text>*/}
                   {/*</View>*/}
 
                 {/*</View>*/}
@@ -137,9 +137,9 @@ class Index extends Component {
             {/*})*/}
           {/*}*/}
         {/*</View>*/}
-        <View className='panel-label'>
-          <View className='panel-label__title'>工作经历</View>
-        </View>
+        {/*<View className='panel-label'>*/}
+          {/*<View className='panel-label__title'>工作经历</View>*/}
+        {/*</View>*/}
         {/*<View className='single-list'>*/}
           {/*{*/}
             {/*user.workList.map((item, index) => {*/}
