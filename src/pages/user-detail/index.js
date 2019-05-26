@@ -75,7 +75,7 @@ class Index extends Component {
   }
   render() {
     const userDetail = this.props.userDetail;
-    const tpye = this.props.userDetail.gender
+    const gender = this.props.userDetail.gender == 1?'男':'女';
     const {isCollection} = this.state;
 
     return (
@@ -94,18 +94,11 @@ class Index extends Component {
             <View className='content-list__item__label'>姓名</View>
             <View className='content-list__item__content'>{userDetail.nickname}</View>
           </View>
-          { tpye &&
+
           <View className='content-list__item'>
             <View className='content-list__item__label'>性别：</View>
-            <View className='content-list__item__content'>男</View>
+            <View className='content-list__item__content'>{gender}</View>
           </View>
-          }
-          { !tpye &&
-          <View className='content-list__item'>
-            <View className='content-list__item__label'>性别：</View>
-            <View className='content-list__item__content'>女</View>
-          </View>
-          }
 
           <View className='content-list__item'>
             <View className='content-list__item__label'>学历：</View>
